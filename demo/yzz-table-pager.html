@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>表格列表插件</title>
+		<link rel="stylesheet" href="../css/yzz/yzz-main.css" />
+	</head>
+
+	<body>
+		
+		<div>
+			<button class="yzz-button" onclick="one()">第一页</button>
+			<button class="yzz-button" onclick="two()">第二页</button>
+			<button class="yzz-button" onclick="three()">第三页</button>
+		</div>
+
+		<div class="pager"></div>
+		
+		<!--<div class="pager"></div>--><!-- 类名不可相同 -->
+
+		<script type="text/javascript" src="../js/jquery-2.1.0.min.js"></script>
+		<script type="text/javascript" src="../js/jquery.yzz.table.pager-1.0.js"></script>
+		<script type="text/javascript">
+			$(function() {
+				$(".pager").yzzTbalePager();
+			})
+
+			function one() {
+				var datas = [
+					['<input type="checkbox" class="yzz-checkbox" value="0">', '列一', '列二', '<a href="javascript:void(0);" class="yzz-edit">编辑</a><a href="javascript:void(0);" class="yzz-delete">删除</a>'],
+					['<input type="checkbox" class="yzz-checkbox" value="2">', '列一', '列二', '<a href="javascript:void(0);" class="yzz-edit">编辑</a><a href="javascript:void(0);" class="yzz-delete">删除</a>']
+				];
+				var currentPage = 1;
+				turn(datas, currentPage);
+			}
+
+			function two() {
+				var datas = [
+					['<input type="checkbox" class="yzz-checkbox" value="0">', '列一', '列二', '<a href="javascript:void(0);" class="yzz-edit">编辑</a><a href="javascript:void(0);" class="yzz-delete">删除</a>']
+				];
+				var currentPage = 2;
+				turn(datas, currentPage);
+			}
+
+			function three() {
+				var datas = [
+					['<input type="checkbox" class="yzz-checkbox" value="0">', '列一', '列二', '<a href="javascript:void(0);" class="yzz-edit">编辑</a><a href="javascript:void(0);" class="yzz-delete">删除</a>'],
+					['<input type="checkbox" class="yzz-checkbox" value="1">', '列一', '列二', '<a href="javascript:void(0);" class="yzz-edit">编辑</a><a href="javascript:void(0);" class="yzz-delete">删除</a>'],
+					['<input type="checkbox" class="yzz-checkbox" value="2">', '列一', '列二', '<a href="javascript:void(0);" class="yzz-edit">编辑</a><a href="javascript:void(0);" class="yzz-delete">删除</a>']
+				];
+				var currentPage = 3;
+				turn(datas, currentPage);
+			}
+
+			function turn(datas, currentPage) {
+				$(".pager").yzzTbalePager({
+					datas: datas,
+					page: {
+						'currentPage': currentPage,
+						'pageSize': 10,
+						'totalPage': 4,
+						'totalRecord': 35
+					}
+				});
+			}
+		</script>
+	</body>
+
+</html>

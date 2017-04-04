@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<title>layer弹层 - layui</title>
+
+		<link rel="stylesheet" href="../css/yzz/yzz-main.css">
+
+		<style>
+			body {
+				padding: 50px 100px;
+			}
+		</style>
+	</head>
+
+	<body class="layui-container">
+
+		<button class="layui-btn demo" data-type="test">测试一</button>
+		<button class="layui-btn demo" data-type="test2">其他页面</button>
+		<button class="layui-btn demo" data-type="test3">页面层-自定义</button>
+		<button class="layui-btn demo" data-type="test4">alert</button>
+		<button class="layui-btn demo" data-type="test5">load</button>
+		<button class="layui-btn demo" data-type="test5">tips</button>
+		<button class="layui-btn demo" data-type="test7">prompt</button>
+
+		<div id="bbs_update_form" style="display: none;padding: 20px;">
+			<form class="layui-form layui-form-pane" id="update_bbs_info_form">
+
+				<div class="layui-form-item">
+					<label class="layui-form-label">论坛封面</label>
+					<div class="layui-input-block">
+						<input type="text" name="bbs_bg" autocomplete="off" placeholder="请输入图片地址（1045px*180px）" class="layui-input" value="http://q.jinsom.cn/wp-content/uploads/2016/12/bbs_bg.jpg">
+					</div>
+				</div>
+
+				<div class="layui-form-item">
+					<label class="layui-form-label">论坛头像</label>
+					<div class="layui-input-block">
+						<input type="text" name="bbs_avatar" autocomplete="off" placeholder="请输入图片地址（150px*150px）" class="layui-input" value="http://q.jinsom.cn/wp-content/uploads/2016/12/timg.jpg">
+					</div>
+				</div>
+
+				<div class="layui-form-item">
+					<label class="layui-form-label">论坛介绍</label>
+					<div class="layui-input-block">
+						<textarea placeholder="50字内" class="layui-textarea" name="bbs_desc">LightSNS是一款wordpress轻社交主题，这里是关于你这个论坛的描述，随便扯吧。
+</textarea>
+					</div>
+				</div>
+
+				<div class="layui-form-item">
+					<label class="layui-form-label">论坛公告</label>
+					<div class="layui-input-block">
+						<textarea placeholder="100字内" class="layui-textarea" name="bbs_notice">公告</textarea>
+					</div>
+				</div>
+
+				<div class="layui-form-item">
+					<label class="layui-form-label">付费功能</label>
+					<div class="layui-input-block">
+						<input type="checkbox" name="bbs_fufei" lay-skin="switch" title="开启付费可看功能" checked lay-skin="switch">
+					</div>
+				</div>
+
+				<div class="layui-form-item">
+					<label class="layui-form-label">验证码</label>
+					<div class="layui-input-block">
+						<input type="checkbox" name="bbs_captcha" lay-skin="switch" title="开启验证码功能">
+					</div>
+				</div>
+
+				<div class="layui-form-item" style="text-align: right;">
+					<div class="layui-btn" id="bbs_update_button">更新</div>
+				</div>
+
+			</form>
+		</div>
+		<script type="text/javascript" src="../js/jquery-2.1.0.min.js"></script>
+		<script src="../js/layui.js"></script>
+		<script>
+			layui.use('layer', function() {
+				var $ = layui.jquery,
+					layer = layui.layer; //独立版的layer无需执行这一句
+
+				//触发事件
+				var active = {
+					test: function() {
+						layer.alert('你好么，体验者');
+					},
+					test2: function() {
+						layer.open({
+							type: 2,
+							content: 'http://fly.layui.com/',
+							area: ['375px', '500px'],
+							maxmin: true
+						})
+					},
+					test3: function() {
+						layer.open({
+							title: '更新论坛信息',
+							type: 1,
+							skin: 'layui-layer-rim',
+							//							skin: 'layui-layer-nobg', //没有背景色
+							shadeClose: true,
+							area: ['500px', '580px'],
+							content: $('#bbs_update_form')
+						});
+					},
+					test4: function() {
+						layer.alert('见到你真的很高兴', {
+							icon: 6
+						});
+						layer.msg('这是最常用的吧');
+						layer.msg('不开心。。', {
+							icon: 5
+						});
+						layer.msg('玩命卖萌中', function() {
+							//关闭后的操作
+						});
+					},
+					test5: function() {
+						//加载层-默认风格
+						layer.load();
+						//此处演示关闭
+						setTimeout(function() {
+							layer.closeAll('loading');
+						}, 2000);
+						//加载层-风格2
+						layer.load(1);
+						//此处演示关闭
+						setTimeout(function() {
+							layer.closeAll('loading');
+						}, 2000);
+						//加载层-风格3
+						layer.load(2);
+						//此处演示关闭
+						setTimeout(function() {
+							layer.closeAll('loading');
+						}, 2000);
+						//加载层-风格4
+						layer.msg('加载中', {
+							icon: 16,
+							shade: 0.01
+						});
+						//打酱油
+						layer.msg('尼玛，打个酱油', {
+							icon: 4
+						});
+					},
+					test6: function() {
+						//tips层-上
+						layer.tips('上', '#id或者.class', {
+							tips: [1, '#0FA6D8'] //还可配置颜色
+						});
+						//tips层-右
+						layer.tips('默认就是向右的', '#id或者.class');
+						//tips层-下
+						layer.tips('下', '#id或者.class', {
+							tips: 3
+						});
+						//tips层-左
+						layer.tips('左边么么哒', '#id或者.class', {
+							tips: [4, '#78BA32']
+						});
+						//tips层-不销毁之前的
+						layer.tips('不销毁之前的', '#id或者.class', {
+							tipsMore: true
+						});
+					},
+					test7: function() {
+						//默认prompt
+						layer.prompt(function(val, index) {
+							layer.msg('得到了' + val);
+							layer.close(index);
+						});
+					}
+				};
+				$('.demo').on('click', function() {
+					var type = $(this).data('type');
+					active[type] ? active[type].call(this) : '';
+				});
+			})
+		</script>
+	</body>
+
+</html>

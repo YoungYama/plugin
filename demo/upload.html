@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<title>文件上传模块 - layui</title>
+
+		<link rel="stylesheet" href="../css/yzz/yzz-main.css">
+
+		<style>
+			body {
+				padding: 50px 100px;
+			}
+		</style>
+	</head>
+
+	<body class="layui-container">
+
+		<input type="file" name="file" class="layui-upload-file">
+		<br><br>
+		<i>保留原格式：</i><input type="file" name="file" id="test">
+		<!--lay-type images图片类型。默认，不用设定-->
+		<br><br>
+		<input type="file" name="file1" lay-type="file" lay-ext="zip|rar" class="layui-upload-file">
+		<br><br>
+		<input type="file" name="file1" lay-type="audio" class="layui-upload-file">
+		<br><br>
+		<input type="file" name="file2" lay-type="video" class="layui-upload-file">
+
+		<script src="../js/layui.js"></script>
+		<script>
+			layui.use('upload', function() {
+
+				layui.upload({
+					url: '',
+					success: function(src) {
+						console.log(src)
+					}
+				});
+
+				layui.upload({
+					url: 'http://zz:98/api/upload-test/',
+					elem: '#test',
+					ext: 'jpg|png|gif', //那么，就只会支持这三种格式的上传。注意是用|分割
+					unwrap: true, //是否不改变input的样式风格。默认false
+					before: function(input) {
+						//返回的参数item，即为当前的input DOM对象
+						alert('文件上传中');
+					},
+					success: function(callbackData) {
+						alert(callbackData); //如：{"code":0 ,"msg":"","url":"http://cdn.abc.com/123.jpg"'} 
+					}
+				});
+
+			});
+		</script>
+	</body>
+
+</html>
