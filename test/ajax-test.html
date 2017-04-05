@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>ajax-test.html</title>
+	</head>
+
+	<body>
+
+		<script type="text/javascript" src="../js/jquery-2.1.0.min.js"></script>
+		<script type="text/javascript">
+			var result = null;
+			$(function() {
+				changeResult();
+				$("body").html(result);
+			});
+
+			function changeResult() {
+				$.ajax({
+					type: "get", //请求方式
+					url: "../json/ajax-text.json", //请求URI资源
+					data: { "param": "value" }, //key-value类型参数
+					async: false, //是否异步，默认为true，异步相当于多线程，同步则需要ajax执行完后才能执行接下来的程序。注意，同步请求将锁住浏览器，用户其他操作必须等待请求完成才可以执行。
+					dataType: "JSON", //返回数据类型
+					contentType: "application/json;charset=utf-8", //发送信息至服务器时内容编码类型。
+					timeout: 1000, //设置请求超时时间（毫秒）
+					cache: true, //默认为true，（当dataType为script时，默认为false），设置为false将不会从浏览器缓存中加载请求信息。比如上次访问了a.html，第二次的时候得到的是上次访问的a.html的结果，而不是重新到服务器获取。
+					beforeSend: function(XMLHttpRequest) {//发送请求前可修改 XMLHttpRequest 对象的函数，如添加自定义 HTTP 头。
+						//调用本次ajax请求时传递的options参数 this
+						//this = null; //可修改
+						//XMLHttpRequest.type = "post"; //可修改
+						
+						//return false;//如果返回 false 可以取消本次 ajax 请求。
+						result = JSON.stringify(XMLHttpRequest) + "--->" + JSON.stringify(this);
+						result += "<br/>------------------<br/>";
+					},
+					success: function(callbackData, textStatus) {
+						var tableHtml = "<table border='1'>";
+						$.each(callbackData, function(index, item) {
+							tableHtml += "<tr><td>" + index + "</td><td>" + item.username + "</td><td>" + item.password + "</td></tr>"
+						});
+						tableHtml += "</table>"
+						result += textStatus + "--->" + JSON.stringify(callbackData);
+						result += "<br/>------------------<br/>";
+						result += tableHtml;
+					},
+					complete: function(XMlHttpRquest, textStatus) {//请求完成后回调函数 (请求成功或失败之后均调用)。
+						//调用本次ajax请求时传递的options参数 this
+						result += "<br/>------------------<br/>";
+						result += textStatus + "--->" + JSON.stringify(XMlHttpRquest);
+					},
+					error: function(textStatus, errorThrown) {
+						//通常情况下textStatus和errorThrown只有其中一个包含信息
+						//调用本次ajax请求时传递的options参数 this   
+						result += "<br/>------------------<br/>";
+						result += textStatus + "--->" + JSON.stringify(errorThrown);
+					}
+				});
+			}
+		</script>
+	</body>
+
+</html>
