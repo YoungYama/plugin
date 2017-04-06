@@ -65,7 +65,7 @@ $.fn.yzzTbalePager = function(options) {
 
 	// 在每个调用该插件的元素中执行以下代码
 	return $(this).each(function() {
-		settings.$this.html(''); //先清空原来的内容
+		settings.$this.empty(); //先清空原来的内容
 		settings.$this.css('padding', '10px');
 
 		if(settings.datas.length > 0) {

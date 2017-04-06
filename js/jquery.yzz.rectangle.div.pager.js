@@ -26,6 +26,7 @@ $.fn.yzzRectangleDivPager = function(options) {
 		addInsertButton: true,
 		addDeleteButton: true,
 		chooseAllButton: true,
+		isOnlyChooseOne: false, //是否开启只能选取一项的功能
 		$this: $(this),
 		titleLength: 6, //标题最大长度
 		noDatasImgTip: 'http://ww2.sinaimg.cn/mw690/0060tXcFgw1f06d5ziejaj30o016otfp.jpg',
@@ -66,7 +67,7 @@ $.fn.yzzRectangleDivPager = function(options) {
 
 	// 在每个调用该插件的元素中执行以下代码
 	return $(this).each(function() {
-		settings.$this.html(''); //先清空原来的内容
+		settings.$this.empty(); //先清空原来的内容
 
 		if(settings.datas.length > 0) {
 
@@ -196,15 +197,24 @@ $.fn.yzzRectangleDivPager = function(options) {
 
 			//复选框事件
 			settings.$this.find('.yzz-checkbox-label').click(function() {
-				var $checkbox = settings.$this.find('.yzz-checkbox-input');
+				var $checkboxs = settings.$this.find('.yzz-checkbox-input');
 				var index = $(this).attr('id');
-				$checkbox.eq(index).click();
+				$checkboxs.eq(index).click();
 				var $main = settings.$this.find('.yzz-single-article-main-div');
-				if($checkbox.eq(index).prop('checked')) {
+				if(settings.isOnlyChooseOne) {//启动单选
+					$checkboxs.prop('checked', false);
+					$main.attr('id', 'no');
+
+					$checkboxs.eq(index).prop('checked', true);
 					$main.eq(index).attr('id', 'yes');
 				} else {
-					$main.eq(index).attr('id', 'no');
+					if($checkboxs.eq(index).prop('checked')) {
+						$main.eq(index).attr('id', 'yes');
+					} else {
+						$main.eq(index).attr('id', 'no');
+					}
 				}
+
 			});
 
 			//鼠标悬浮事件
