@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>yzz-carousel.html</title>
+	</head>
+
+	<body>
+
+		<div id="yzz-carousel-div">
+
+		</div>
+
+		<script type="text/javascript" src="../../js/jquery-2.1.0.min.js"></script>
+		<script type="text/javascript">
+			$(function() {
+				$('#yzz-carousel-div').yzzCarousel();
+			});
+
+			$.fn.yzzCarousel = function(options) {
+				var defaults = {
+					$this: $(this),
+					datas: ['https://img5.bcyimg.com/editor/flag/178kp/d61413e00df811e7af33bb1ba4eb68f9.jpg', 'https://img9.bcyimg.com/editor/flag/178ke/36dd9a40057311e7b21711514281e411.jpg', 'https://img9.bcyimg.com/editor/flag/4bo1/3b0c7f6019d611e7b105f17bd6d992f6.jpg', 'https://img5.bcyimg.com/editor/flag/c04cc/efdf9ce0969d11e6bbe1e997da522b55.jpg']
+				};
+				//将一个空对象做为第一个参数
+				var settings = $.extend({}, defaults, options);
+
+				// 在每个调用该插件的元素中执行以下代码
+				return $(this).each(function() {
+					settings.$this.empty(); //先清空原来的内容	
+
+					var imgHtml = '';
+					$.each(settings.datas, function(index, data) {
+						imgHtml += '<img src="' + data + '" />';
+					});
+
+					settings.$this.append(imgHtml);
+				});
+			}
+		</script>
+	</body>
+
+</html>
