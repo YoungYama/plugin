@@ -6,7 +6,7 @@
  */
 
 /*类微信图文列表开始*/
-$.fn.yzzRectangleArticlesDivPager = function(options) {
+$.fn.yzzArticlesDivPager = function(options) {
 	var defaults = {
 		datas: [ //启动编辑点击事件必须带class：yzz-edit、启动删除点击事件必须带class：yzz-delete
 			['1fghdrg3erfewrg', '2017-04-02', 'http://ww2.sinaimg.cn/mw690/0060tXcFgw1f06d5ziejaj30o016otfp.jpg', '1111标题标题标题', '<a href="javascript: void(0);" class="yzz-pre-view">预览文章</a>', [
@@ -74,11 +74,11 @@ $.fn.yzzRectangleArticlesDivPager = function(options) {
 		endPage: function() {
 			alert('endPage');
 		},
-		setPageSize: function() {
-			alert('setPageSize:' + settings.$this.find('.yzz-page-size select').val());
+		setPageSize: function(pageSize) {
+			alert('setPageSize:' + pageSize);
 		},
-		setCurrentPage: function() {
-			alert('setCurrentPage:' + settings.$this.find('.yzz-goto-page-div select').val());
+		setCurrentPage: function(currentPage) {
+			alert('setCurrentPage:' + currentPage);
 		},
 		editRecord: function(id) {
 			alert('editRecord:' + id);
@@ -365,11 +365,11 @@ $.fn.yzzRectangleArticlesDivPager = function(options) {
 				//设置事件
 				//设置每页显示条数事件
 				settings.$this.find('.yzz-page-size select').change(function() {
-					settings.setPageSize();
+					settings.setPageSize(settings.$this.find('.yzz-page-size select').val());
 				});
 				//设置页面跳转事件
 				settings.$this.find('.yzz-goto-page-div select').change(function() {
-					settings.setCurrentPage();
+					settings.setCurrentPage(settings.$this.find('.yzz-goto-page-div select').val());
 				});
 				if(settings.page['currentPage'] == 1) {
 					settings.$this.find('.yzz-page-turn .firstPage').css({

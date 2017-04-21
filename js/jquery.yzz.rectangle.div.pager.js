@@ -43,11 +43,11 @@ $.fn.yzzRectangleDivPager = function(options) {
 		endPage: function() {
 			alert('endPage');
 		},
-		setPageSize: function() {
-			alert('setPageSize:' + settings.$this.find('.yzz-page-size select').val());
+		setPageSize: function(pageSize) {
+			alert('setPageSize:' + pageSize);
 		},
-		setCurrentPage: function() {
-			alert('setCurrentPage:' + settings.$this.find('.yzz-goto-page-div select').val());
+		setCurrentPage: function(currentPage) {
+			alert('setCurrentPage:' + currentPage);
 		},
 		editRecord: function(id) {
 			alert('editRecord:' + id);
@@ -275,11 +275,11 @@ $.fn.yzzRectangleDivPager = function(options) {
 				//设置事件
 				//设置每页显示条数事件
 				settings.$this.find('.yzz-page-size select').change(function() {
-					settings.setPageSize();
+					settings.setPageSize(settings.$this.find('.yzz-page-size select').val());
 				});
 				//设置页面跳转事件
 				settings.$this.find('.yzz-goto-page-div select').change(function() {
-					settings.setCurrentPage();
+					settings.setCurrentPage(settings.$this.find('.yzz-goto-page-div select').val());
 				});
 				if(settings.page['currentPage'] == 1) {
 					settings.$this.find('.yzz-page-turn .firstPage').css({
